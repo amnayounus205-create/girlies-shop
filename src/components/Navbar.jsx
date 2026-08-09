@@ -1,53 +1,52 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { FaShoppingBag, FaBars, FaTimes, FaUser } from "react-icons/fa";
+import { FaShoppingBag } from "react-icons/fa";
 import { useCart } from "../context/CartContext";
 
 function Navbar() {
-  const [menuOpen, setMenuOpen] = useState(false);
   const { cartCount } = useCart();
   const location = useLocation();
 
   const isActive = (path) => location.pathname === path;
 
-  const closeMenu = () => {
-    setMenuOpen(false);
-  };
-
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-pink-100/70 bg-white/85 shadow-sm backdrop-blur-xl">
+    <header className="sticky top-0 z-50 w-full border-b border-pink-100/80 bg-white/90 shadow-sm backdrop-blur-xl">
 
-      <nav className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+      <nav className="mx-auto w-full max-w-7xl px-3 sm:px-6 lg:px-8">
 
-        <div className="flex h-[72px] items-center justify-between">
+        <div className="flex h-[68px] items-center justify-between gap-3">
 
-          {/* LOGO */}
+          {/* =========================
+              LOGO
+          ========================== */}
           <Link
             to="/"
-            onClick={closeMenu}
-            className="group flex items-center gap-2.5"
+            className="group flex shrink-0 items-center gap-2"
           >
-            <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-pink-500 via-rose-500 to-fuchsia-500 text-white shadow-lg shadow-pink-200 transition duration-300 group-hover:scale-105 group-hover:rotate-2">
-              <span className="text-lg">🎀</span>
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-pink-500 via-rose-500 to-fuchsia-500 text-white shadow-md shadow-pink-200 transition duration-300 group-hover:scale-105">
+              <span className="text-base">🎀</span>
             </div>
 
             <div className="leading-none">
-              <div className="bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-xl font-black tracking-tight text-transparent sm:text-2xl">
+              <div className="bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-lg font-black tracking-tight text-transparent sm:text-xl">
                 ShopEasy
               </div>
 
-              <span className="hidden text-[9px] font-semibold uppercase tracking-[0.25em] text-gray-400 sm:block">
+              <span className="hidden text-[8px] font-semibold uppercase tracking-[0.2em] text-gray-400 sm:block">
                 Pretty • Premium • You
               </span>
             </div>
           </Link>
 
-          {/* DESKTOP NAV */}
-          <div className="hidden items-center gap-1 md:flex">
+          {/* =========================
+              NAVIGATION
+              NO MOBILE DROPDOWN
+          ========================== */}
+          <div className="flex min-w-0 flex-1 items-center justify-end gap-0.5 overflow-x-auto scrollbar-hide sm:gap-1">
 
             <Link
               to="/"
-              className={`rounded-xl px-4 py-2 text-sm font-semibold transition-all duration-200 ${
+              className={`shrink-0 rounded-lg px-2 py-2 text-[11px] font-bold transition-all sm:rounded-xl sm:px-3 sm:text-sm ${
                 isActive("/")
                   ? "bg-pink-100 text-pink-700"
                   : "text-gray-600 hover:bg-pink-50 hover:text-pink-600"
@@ -58,7 +57,7 @@ function Navbar() {
 
             <Link
               to="/shop"
-              className={`rounded-xl px-4 py-2 text-sm font-semibold transition-all duration-200 ${
+              className={`shrink-0 rounded-lg px-2 py-2 text-[11px] font-bold transition-all sm:rounded-xl sm:px-3 sm:text-sm ${
                 isActive("/shop")
                   ? "bg-pink-100 text-pink-700"
                   : "text-gray-600 hover:bg-pink-50 hover:text-pink-600"
@@ -69,163 +68,47 @@ function Navbar() {
 
             <Link
               to="/cart"
-              className={`relative flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold transition-all duration-200 ${
+              className={`relative flex shrink-0 items-center gap-1 rounded-lg px-2 py-2 text-[11px] font-bold transition-all sm:rounded-xl sm:px-3 sm:text-sm ${
                 isActive("/cart")
                   ? "bg-pink-100 text-pink-700"
                   : "text-gray-600 hover:bg-pink-50 hover:text-pink-600"
               }`}
             >
-              <FaShoppingBag className="text-sm" />
-              Cart
+              <FaShoppingBag className="text-[10px] sm:text-xs" />
+
+              <span>Cart</span>
 
               {cartCount > 0 && (
-                <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-gradient-to-r from-pink-500 to-rose-500 px-1 text-[10px] font-bold text-white shadow-md">
+                <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-gradient-to-r from-pink-500 to-rose-500 px-1 text-[8px] font-black text-white shadow-sm sm:h-5 sm:min-w-5 sm:text-[10px]">
                   {cartCount > 99 ? "99+" : cartCount}
                 </span>
               )}
             </Link>
 
             <Link
-              to="/profile"
-              className={`ml-1 flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold transition-all duration-200 ${
-                isActive("/profile")
+              to="/login"
+              className={`shrink-0 rounded-lg px-2 py-2 text-[11px] font-bold transition-all sm:rounded-xl sm:px-3 sm:text-sm ${
+                isActive("/login")
                   ? "bg-pink-100 text-pink-700"
                   : "text-gray-600 hover:bg-pink-50 hover:text-pink-600"
               }`}
-            >
-              <FaUser className="text-xs" />
-              Profile
-            </Link>
-
-            <div className="mx-2 h-7 w-px bg-pink-100" />
-
-            <Link
-              to="/login"
-              className="rounded-xl px-4 py-2 text-sm font-semibold text-gray-600 transition hover:bg-pink-50 hover:text-pink-600"
             >
               Login
             </Link>
 
             <Link
               to="/register"
-              className="rounded-xl bg-gradient-to-r from-pink-500 to-rose-500 px-5 py-2.5 text-sm font-bold text-white shadow-md shadow-pink-200 transition-all duration-300 hover:-translate-y-0.5 hover:from-pink-600 hover:to-rose-600 hover:shadow-lg"
+              className={`shrink-0 rounded-lg px-2.5 py-2 text-[11px] font-bold text-white shadow-sm transition-all sm:rounded-xl sm:px-4 sm:text-sm ${
+                isActive("/register")
+                  ? "bg-gradient-to-r from-pink-600 to-rose-600"
+                  : "bg-gradient-to-r from-pink-500 to-rose-500 hover:-translate-y-0.5 hover:from-pink-600 hover:to-rose-600 hover:shadow-md"
+              }`}
             >
               Register
             </Link>
 
           </div>
 
-          {/* MOBILE ACTIONS */}
-          <div className="flex items-center gap-2 md:hidden">
-
-            <Link
-              to="/cart"
-              className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-pink-50 text-pink-600 transition hover:bg-pink-100"
-              aria-label="Cart"
-            >
-              <FaShoppingBag />
-
-              {cartCount > 0 && (
-                <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-pink-500 px-1 text-[10px] font-bold text-white shadow">
-                  {cartCount > 99 ? "99+" : cartCount}
-                </span>
-              )}
-            </Link>
-
-            <button
-              type="button"
-              onClick={() => setMenuOpen((prev) => !prev)}
-              className="flex h-10 w-10 items-center justify-center rounded-xl bg-gray-50 text-gray-700 transition hover:bg-pink-50 hover:text-pink-600"
-              aria-label="Toggle navigation menu"
-              aria-expanded={menuOpen}
-            >
-              {menuOpen ? <FaTimes /> : <FaBars />}
-            </button>
-
-          </div>
-        </div>
-
-        {/* MOBILE MENU */}
-        <div
-          className={`overflow-hidden transition-all duration-300 md:hidden ${
-            menuOpen
-              ? "max-h-[500px] pb-4 opacity-100"
-              : "max-h-0 opacity-0"
-          }`}
-        >
-          <div className="space-y-1 rounded-2xl border border-pink-100 bg-gradient-to-br from-pink-50/80 to-white p-2 shadow-sm">
-
-            <Link
-              to="/"
-              onClick={closeMenu}
-              className={`block rounded-xl px-4 py-3 text-sm font-semibold ${
-                isActive("/")
-                  ? "bg-white text-pink-600 shadow-sm"
-                  : "text-gray-700 hover:bg-white hover:text-pink-600"
-              }`}
-            >
-              🏠 Home
-            </Link>
-
-            <Link
-              to="/shop"
-              onClick={closeMenu}
-              className={`block rounded-xl px-4 py-3 text-sm font-semibold ${
-                isActive("/shop")
-                  ? "bg-white text-pink-600 shadow-sm"
-                  : "text-gray-700 hover:bg-white hover:text-pink-600"
-              }`}
-            >
-              🛍️ Shop
-            </Link>
-
-            <Link
-              to="/cart"
-              onClick={closeMenu}
-              className={`block rounded-xl px-4 py-3 text-sm font-semibold ${
-                isActive("/cart")
-                  ? "bg-white text-pink-600 shadow-sm"
-                  : "text-gray-700 hover:bg-white hover:text-pink-600"
-              }`}
-            >
-              🛒 Cart {cartCount > 0 && `(${cartCount})`}
-            </Link>
-
-            <Link
-              to="/profile"
-              onClick={closeMenu}
-              className={`block rounded-xl px-4 py-3 text-sm font-semibold ${
-                isActive("/profile")
-                  ? "bg-white text-pink-600 shadow-sm"
-                  : "text-gray-700 hover:bg-white hover:text-pink-600"
-              }`}
-            >
-              👤 Profile
-            </Link>
-
-            <div className="my-2 h-px bg-pink-100" />
-
-            <div className="grid grid-cols-2 gap-2">
-
-              <Link
-                to="/login"
-                onClick={closeMenu}
-                className="rounded-xl border border-pink-100 bg-white px-4 py-3 text-center text-sm font-bold text-gray-700 transition hover:border-pink-200 hover:text-pink-600"
-              >
-                Login
-              </Link>
-
-              <Link
-                to="/register"
-                onClick={closeMenu}
-                className="rounded-xl bg-gradient-to-r from-pink-500 to-rose-500 px-4 py-3 text-center text-sm font-bold text-white shadow-md"
-              >
-                Register
-              </Link>
-
-            </div>
-
-          </div>
         </div>
 
       </nav>
