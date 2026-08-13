@@ -1,10 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const springTransition = { type: 'spring', stiffness: 100, damping: 15 };
 
 function Home() {
+  const [email, setEmail] = useState('');
+  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleSubscribe = (e) => {
+    e.preventDefault();
+    if (!email || !email.includes('@') || !email.includes('.')) {
+      setError('Please enter a valid email address ✨');
+      return;
+    }
+    setError('');
+    setIsSubscribed(true);
+    // Yahan aap apna backend API call ya Firebase logic laga sakte hain baad mein
+  };
+
   const categories = [
     {
       name: 'Bags',
@@ -405,7 +420,7 @@ function Home() {
 
 
       {/* =====================================================
-          NEWSLETTER
+          NEWSLETTER (FUNCTIONAL SUBSCRIBE)
       ===================================================== */}
       <section className="relative z-10 overflow-hidden border-y border-pink-200 bg-gradient-to-br from-pink-100/90 via-white to-rose-100/90 py-12 sm:py-14">
         <div className="relative mx-auto max-w-4xl px-5 text-center sm:px-8">
@@ -432,27 +447,53 @@ function Home() {
             Get updates about new arrivals, special offers and everything pretty.
           </p>
 
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="mx-auto mt-5 flex max-w-md flex-col gap-2.5 sm:flex-row px-2"
-          >
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="min-w-0 flex-1 rounded-full border border-pink-300 bg-white/95 px-5 py-3 text-xs sm:text-sm outline-none transition focus:border-pink-500 focus:ring-4 focus:ring-pink-200"
-            />
-            <motion.button
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.96 }}
-              type="button"
-              className="rounded-full bg-gradient-to-r from-pink-600 to-rose-600 px-7 py-3 text-xs sm:text-sm font-bold text-white shadow-lg shadow-pink-300/40 transition-colors hover:from-pink-700 hover:to-rose-700"
-            >
-              Subscribe
-            </motion.button>
-          </motion.div>
+          <AnimatePresence mode="wait">
+            {!isSubscribed ? (
+              <motion.form
+                key="form"
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                onSubmit={handleSubscribe}
+                className="mx-auto mt-5 flex max-w-md flex-col gap-2.5 sm:flex-row px-2"
+              >
+                <div className="flex-1 flex flex-col">
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      if (error) setError('');
+                    }}
+                    placeholder="Enter your email"
+                    className="w-full rounded-full border border-pink-300 bg-white/95 px-5 py-3 text-xs sm:text-sm outline-none transition focus:border-pink-500 focus:ring-4 focus:ring-pink-200"
+                  />
+                  {error && (
+                    <span className="mt-1.5 text-left text-[11px] font-semibold text-rose-600 pl-4">{error}</span>
+                  )}
+                </div>
+                <motion.button
+                  whileHover={{ scale: 1.04 }}
+                  whileTap={{ scale: 0.96 }}
+                  type="submit"
+                  className="h-[46px] rounded-full bg-gradient-to-r from-pink-600 to-rose-600 px-7 text-xs sm:text-sm font-bold text-white shadow-lg shadow-pink-300/40 transition-colors hover:from-pink-700 hover:to-rose-700 shrink-0"
+                >
+                  Subscribe
+                </motion.button>
+              </motion.form>
+            ) : (
+              <motion.div
+                key="success"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="mx-auto mt-6 max-w-md rounded-2xl bg-white/90 border border-pink-200 p-4 shadow-lg shadow-pink-200/50 backdrop-blur-md text-center"
+              >
+                <p className="text-sm font-bold text-gray-900">💖 You're officially on the list!</p>
+                <p className="mt-0.5 text-xs text-gray-600">Thank you for subscribing, gorgeous. Check your inbox soon!</p>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
           <p className="mt-2.5 text-[10px] text-gray-500">No spam. Just pretty things and occasional offers.</p>
         </div>
       </section>
