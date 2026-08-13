@@ -1,19 +1,25 @@
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
-import { FaShoppingBag } from "react-icons/fa";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { FaShoppingBag, FaUser } from "react-icons/fa";
 import { useCart } from "../context/CartContext";
 
 function Navbar() {
   const { cartCount } = useCart();
   const location = useLocation();
+  const navigate = useNavigate();
+  const [currentUser, setCurrentUser] = useState(null);
+
+  // Jab bhi page change ho ya component load ho, check karein ke user logged in hai ya nahi
+  useEffect(() => {
+    const activeUser = JSON.parse(localStorage.getItem('boutique_current_user'));
+    setCurrentUser(activeUser);
+  }, [location]);
 
   const isActive = (path) => location.pathname === path;
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-pink-100/80 bg-white/90 shadow-sm backdrop-blur-xl">
-
       <nav className="mx-auto w-full max-w-7xl px-3 sm:px-6 lg:px-8">
-
         <div className="flex h-[68px] items-center justify-between gap-3">
 
           {/* =========================
@@ -39,8 +45,7 @@ function Navbar() {
           </Link>
 
           {/* =========================
-              NAVIGATION
-              NO MOBILE DROPDOWN
+              NAVIGATION LINKS
           ========================== */}
           <div className="flex min-w-0 flex-1 items-center justify-end gap-0.5 overflow-x-auto scrollbar-hide sm:gap-1">
 
@@ -75,7 +80,6 @@ function Navbar() {
               }`}
             >
               <FaShoppingBag className="text-[10px] sm:text-xs" />
-
               <span>Cart</span>
 
               {cartCount > 0 && (
@@ -85,32 +89,48 @@ function Navbar() {
               )}
             </Link>
 
-            <Link
-              to="/login"
-              className={`shrink-0 rounded-lg px-2 py-2 text-[11px] font-bold transition-all sm:rounded-xl sm:px-3 sm:text-sm ${
-                isActive("/login")
-                  ? "bg-pink-100 text-pink-700"
-                  : "text-gray-600 hover:bg-pink-50 hover:text-pink-600"
-              }`}
-            >
-              Login
-            </Link>
+            {/* CONDITIONAL RENDERING: Agar User Logged In hai toh Account dikhayein, warna Login & Register */}
+            {currentUser ? (
+              <Link
+                to="/account"
+                className={`flex shrink-0 items-center gap-1.5 rounded-lg px-2.5 py-2 text-[11px] font-bold text-white shadow-sm transition-all sm:rounded-xl sm:px-4 sm:text-sm ${
+                  isActive("/account")
+                    ? "bg-gradient-to-r from-pink-600 to-rose-600"
+                    : "bg-gradient-to-r from-pink-500 to-rose-500 hover:-translate-y-0.5 hover:from-pink-600 hover:to-rose-600 hover:shadow-md"
+                }`}
+              >
+                <FaUser className="text-[10px] sm:text-xs" />
+                <span>{currentUser.name ? currentUser.name.split(" ")[0] : "Account"}</span>
+              </Link>
+            ) : (
+              <>
+                <Link
+                  to="/login"
+                  className={`shrink-0 rounded-lg px-2 py-2 text-[11px] font-bold transition-all sm:rounded-xl sm:px-3 sm:text-sm ${
+                    isActive("/login")
+                      ? "bg-pink-100 text-pink-700"
+                      : "text-gray-600 hover:bg-pink-50 hover:text-pink-600"
+                  }`}
+                >
+                  Login
+                </Link>
 
-            <Link
-              to="/register"
-              className={`shrink-0 rounded-lg px-2.5 py-2 text-[11px] font-bold text-white shadow-sm transition-all sm:rounded-xl sm:px-4 sm:text-sm ${
-                isActive("/register")
-                  ? "bg-gradient-to-r from-pink-600 to-rose-600"
-                  : "bg-gradient-to-r from-pink-500 to-rose-500 hover:-translate-y-0.5 hover:from-pink-600 hover:to-rose-600 hover:shadow-md"
-              }`}
-            >
-              Register
-            </Link>
+                <Link
+                  to="/register"
+                  className={`shrink-0 rounded-lg px-2.5 py-2 text-[11px] font-bold text-white shadow-sm transition-all sm:rounded-xl sm:px-4 sm:text-sm ${
+                    isActive("/register")
+                      ? "bg-gradient-to-r from-pink-600 to-rose-600"
+                      : "bg-gradient-to-r from-pink-500 to-rose-500 hover:-translate-y-0.5 hover:from-pink-600 hover:to-rose-600 hover:shadow-md"
+                  }`}
+                >
+                  Register
+                </Link>
+              </>
+            )}
 
           </div>
 
         </div>
-
       </nav>
     </header>
   );

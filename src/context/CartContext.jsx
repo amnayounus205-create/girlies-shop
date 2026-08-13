@@ -11,7 +11,7 @@ const CartContext = createContext(null);
 export function CartProvider({ children }) {
   /*
    * =========================================================
-   * LOAD CART FROM LOCAL STORAGE
+   * LOAD CART FROM LOCAL STORAGE SAFELY
    * =========================================================
    */
 
@@ -68,11 +68,6 @@ export function CartProvider({ children }) {
         (item) => item.id === product.id
       );
 
-      /*
-       * Product already exists
-       * Increase quantity
-       */
-
       if (existingItem) {
         return prevCart.map((item) =>
           item.id === product.id
@@ -83,10 +78,6 @@ export function CartProvider({ children }) {
             : item
         );
       }
-
-      /*
-       * New product
-       */
 
       return [
         ...prevCart,
@@ -133,10 +124,6 @@ export function CartProvider({ children }) {
             quantity: newQuantity,
           };
         })
-        /*
-         * Automatically remove item if quantity
-         * becomes 0 or lower.
-         */
         .filter((item) => item.quantity > 0)
     );
   };
@@ -167,11 +154,27 @@ export function CartProvider({ children }) {
   };
 
 
+  /*
+   * =========================================================
+   * CLEAR CART (Fixes persistence issue after checkout)
+   * =========================================================
+   */
+
   const clearCart = () => {
     setCart([]);
+    try {
+      localStorage.removeItem('girlies-shop-cart');
+    } catch (error) {
+      console.error('Unable to clear cart storage:', error);
+    }
   };
 
 
+  /*
+   * =========================================================
+   * MEMOIZED CALCULATIONS
+   * =========================================================
+   */
 
   const cartCount = useMemo(() => {
     return cart.reduce(
@@ -180,19 +183,9 @@ export function CartProvider({ children }) {
     );
   }, [cart]);
 
-
-  /*
-   * Number of unique products
-   */
-
   const productCount = useMemo(() => {
     return cart.length;
   }, [cart]);
-
-
-  /*
-   * Subtotal
-   */
 
   const cartSubtotal = useMemo(() => {
     return cart.reduce(
@@ -202,13 +195,9 @@ export function CartProvider({ children }) {
     );
   }, [cart]);
 
-
-  
-
   const isInCart = (id) => {
     return cart.some((item) => item.id === id);
   };
-
 
   const getQuantity = (id) => {
     const item = cart.find(
@@ -227,17 +216,15 @@ export function CartProvider({ children }) {
 
   const value = {
     cart,
-
     addToCart,
     removeFromCart,
     updateQuantity,
     setQuantity,
     clearCart,
-
     cartCount,
     productCount,
     cartSubtotal,
-
+    isInTag: isInCart,
     isInCart,
     getQuantity,
   };
