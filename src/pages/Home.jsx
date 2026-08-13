@@ -45,7 +45,7 @@ function Home() {
   ];
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#fff8fb] text-gray-900 selection:bg-pink-500 selection:text-white">
+    <main className="relative min-h-screen w-full overflow-x-hidden bg-[#fff8fb] text-gray-900 selection:bg-pink-500 selection:text-white">
 
       {/* =====================================================
           BG SHOPPING GIRLIES & GLOWS (ILLUSTRATIVE OVERLAYS)
@@ -54,34 +54,34 @@ function Home() {
       <motion.div 
         animate={{ scale: [1, 1.25, 1], opacity: [0.25, 0.45, 0.25] }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        className="pointer-events-none fixed -left-32 -top-32 z-0 h-[600px] w-[600px] rounded-full bg-pink-300/30 blur-[130px]" 
+        className="pointer-events-none fixed -left-32 -top-32 z-0 h-[400px] w-[400px] sm:h-[600px] sm:w-[600px] rounded-full bg-pink-300/30 blur-[130px]" 
       />
       <motion.div 
         animate={{ scale: [1, 1.2, 1], opacity: [0.25, 0.4, 0.25] }}
         transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-        className="pointer-events-none fixed -right-32 top-1/3 z-0 h-[550px] w-[550px] rounded-full bg-rose-300/30 blur-[140px]" 
+        className="pointer-events-none fixed -right-32 top-1/3 z-0 h-[400px] w-[400px] sm:h-[550px] sm:w-[550px] rounded-full bg-rose-300/30 blur-[140px]" 
       />
 
       {/* Floating Background "Girlies Shopping" Silhouettes / Fashion Art */}
       <motion.div 
         animate={{ y: [-15, 15, -15], rotate: [-2, 2, -2] }}
         transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-        className="pointer-events-none fixed left-[3%] top-[15%] z-0 hidden lg:block opacity-20 blur-[0.5px]"
+        className="pointer-events-none absolute lg:fixed left-[3%] top-[15%] z-0 opacity-20 blur-[0.5px]"
       >
-        <div className="relative h-64 w-44 overflow-hidden rounded-3xl bg-pink-400/20 shadow-inner flex flex-col items-center justify-center p-4">
-          <span className="text-7xl">🛍️</span>
-          <span className="mt-2 text-[10px] font-bold tracking-widest uppercase text-pink-700">Chic Vibe</span>
+        <div className="relative h-48 w-36 sm:h-64 sm:w-44 overflow-hidden rounded-3xl bg-pink-400/20 shadow-inner flex flex-col items-center justify-center p-4">
+          <span className="text-5xl sm:text-7xl">🛍️</span>
+          <span className="mt-2 text-[8px] sm:text-[10px] font-bold tracking-widest uppercase text-pink-700">Chic Vibe</span>
         </div>
       </motion.div>
 
       <motion.div 
         animate={{ y: [15, -15, 15], rotate: [2, -2, 2] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-        className="pointer-events-none fixed right-[4%] bottom-[20%] z-0 hidden lg:block opacity-20 blur-[0.5px]"
+        className="pointer-events-none absolute lg:fixed right-[4%] bottom-[20%] z-0 opacity-20 blur-[0.5px]"
       >
-        <div className="relative h-60 w-40 overflow-hidden rounded-3xl bg-rose-400/20 shadow-inner flex flex-col items-center justify-center p-4">
-          <span className="text-7xl">👜</span>
-          <span className="mt-2 text-[10px] font-bold tracking-widest uppercase text-rose-700">Retail Therapy</span>
+        <div className="relative h-44 w-32 sm:h-60 sm:w-40 overflow-hidden rounded-3xl bg-rose-400/20 shadow-inner flex flex-col items-center justify-center p-4">
+          <span className="text-5xl sm:text-7xl">👜</span>
+          <span className="mt-2 text-[8px] sm:text-[10px] font-bold tracking-widest uppercase text-rose-700">Retail Therapy</span>
         </div>
       </motion.div>
 
@@ -90,22 +90,22 @@ function Home() {
           HERO SECTION
       ===================================================== */}
       <section className="relative z-10 overflow-hidden border-b border-pink-100/70 bg-gradient-to-br from-white/70 via-[#fff9fc]/80 to-pink-50/80 backdrop-blur-md">
-        <div className="relative mx-auto grid min-h-[650px] max-w-7xl items-center gap-14 px-5 py-20 sm:px-8 lg:grid-cols-2 lg:px-10 lg:py-24">
+        <div className="relative mx-auto grid min-h-[650px] max-w-7xl items-center gap-14 px-5 py-16 sm:px-8 lg:grid-cols-2 lg:px-10 lg:py-24">
 
           {/* LEFT CONTENT */}
           <motion.div 
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className="relative z-10 max-w-xl"
+            className="relative z-10 max-w-xl text-center lg:text-left flex flex-col items-center lg:items-start"
           >
             <motion.div 
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.6 }}
-              className="mb-6 flex items-center gap-3"
+              className="mb-6 flex items-center justify-center lg:justify-start gap-3"
             >
-              <span className="h-[2px] w-9 bg-gradient-to-r from-pink-500 to-rose-400" />
+              <span className="h-[2px] w-9 bg-gradient-to-r from-pink-500 to-rose-400 hidden lg:block" />
               <span className="rounded-full bg-pink-100/80 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-pink-600 shadow-sm">
                 🛍️ New Collection 2026
               </span>
@@ -115,7 +115,7 @@ function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.8 }}
-              className="text-5xl font-black leading-[1.02] tracking-[-0.04em] text-gray-950 sm:text-6xl lg:text-7xl"
+              className="text-4xl font-black leading-[1.05] tracking-[-0.04em] text-gray-950 sm:text-6xl lg:text-7xl"
             >
               Think Pretty.
               <br />
@@ -128,7 +128,7 @@ function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.8 }}
-              className="mt-6 max-w-lg text-base leading-7 text-gray-500 sm:text-lg"
+              className="mt-6 max-w-lg text-sm leading-7 text-gray-500 sm:text-lg"
             >
               Discover beautiful bags, elegant jewelry and aesthetic accessories carefully curated to make your everyday style feel a little more special.
             </motion.p>
@@ -137,12 +137,12 @@ function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.8 }}
-              className="mt-9 flex flex-col gap-3 sm:flex-row"
+              className="mt-9 flex w-full flex-col gap-3 sm:flex-row justify-center lg:justify-start"
             >
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-full sm:w-auto">
                 <Link
                   to="/shop"
-                  className="group inline-flex items-center justify-center rounded-full bg-gray-950 px-8 py-4 text-sm font-bold text-white shadow-lg shadow-gray-200 transition-colors hover:bg-pink-600 hover:shadow-pink-200"
+                  className="group inline-flex w-full sm:w-auto items-center justify-center rounded-full bg-gray-950 px-8 py-4 text-sm font-bold text-white shadow-lg shadow-gray-200 transition-colors hover:bg-pink-600 hover:shadow-pink-200"
                 >
                   Explore Collection
                   <motion.span 
@@ -155,10 +155,10 @@ function Home() {
                 </Link>
               </motion.div>
 
-              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="w-full sm:w-auto">
                 <Link
                   to="/shop"
-                  className="inline-flex items-center justify-center rounded-full border border-pink-100 bg-white/70 px-8 py-4 text-sm font-bold text-gray-800 backdrop-blur transition-colors hover:border-pink-200 hover:bg-pink-50 hover:text-pink-600"
+                  className="inline-flex w-full sm:w-auto items-center justify-center rounded-full border border-pink-100 bg-white/70 px-8 py-4 text-sm font-bold text-gray-800 backdrop-blur transition-colors hover:border-pink-200 hover:bg-pink-50 hover:text-pink-600"
                 >
                   Shop Now
                 </Link>
@@ -170,7 +170,7 @@ function Home() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.7, duration: 1 }}
-              className="mt-11 flex flex-wrap items-center gap-6 border-t border-pink-100 pt-7 sm:gap-8"
+              className="mt-11 flex flex-wrap justify-center lg:justify-start items-center gap-6 border-t border-pink-100 pt-7 sm:gap-8 w-full"
             >
               <div>
                 <p className="text-xl font-black text-gray-950">500+</p>
@@ -190,53 +190,53 @@ function Home() {
           </motion.div>
 
           {/* RIGHT HERO GRAPHIC WITH SHOPPING GIRLIES ART */}
-          <div className="relative hidden h-[460px] lg:flex items-center justify-center">
+          <div className="relative flex h-[380px] lg:h-[460px] items-center justify-center">
             <motion.div 
               animate={{ rotate: 360 }}
               transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-              className="absolute h-[390px] w-[390px] rounded-full border border-dashed border-pink-300/60"
+              className="absolute h-[300px] w-[300px] sm:h-[390px] sm:w-[390px] rounded-full border border-dashed border-pink-300/60"
             />
-            <div className="absolute h-[330px] w-[330px] rounded-full bg-gradient-to-br from-pink-200/40 via-pink-100/20 to-rose-100/40 blur-2xl" />
+            <div className="absolute h-[250px] w-[250px] sm:h-[330px] sm:w-[330px] rounded-full bg-gradient-to-br from-pink-200/40 via-pink-100/20 to-rose-100/40 blur-2xl" />
 
             <motion.div 
               initial={{ scale: 0, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ type: "spring", stiffness: 120, damping: 14, delay: 0.3 }}
               whileHover={{ scale: 1.06 }}
-              className="absolute flex h-[270px] w-[270px] flex-col items-center justify-center rounded-full bg-gradient-to-br from-pink-500 via-pink-600 to-rose-500 text-center shadow-2xl shadow-pink-400/50 cursor-pointer overflow-hidden p-4"
+              className="absolute flex h-[220px] w-[220px] sm:h-[270px] sm:w-[270px] flex-col items-center justify-center rounded-full bg-gradient-to-br from-pink-500 via-pink-600 to-rose-500 text-center shadow-2xl shadow-pink-400/50 cursor-pointer overflow-hidden p-4"
             >
               <motion.div 
                 animate={{ y: [-4, 4, -4] }}
                 transition={{ repeat: Infinity, duration: 3 }}
                 className="flex items-center gap-2 mb-1"
               >
-                <span className="text-2xl">🛍️</span>
-                <span className="text-4xl text-white">👩‍🦰✨</span>
-                <span className="text-2xl">🛍️</span>
+                <span className="text-xl sm:text-2xl">🛍️</span>
+                <span className="text-3xl sm:text-4xl text-white">👩‍🦰✨</span>
+                <span className="text-xl sm:text-2xl">🛍️</span>
               </motion.div>
-              <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-pink-100">Girlies Shop</p>
-              <h2 className="mt-1 text-2xl font-black text-white">Stay Pretty.</h2>
-              <p className="text-[11px] text-pink-100">Curated with love ✨</p>
+              <p className="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.3em] text-pink-100">Girlies Shop</p>
+              <h2 className="mt-1 text-xl sm:text-2xl font-black text-white">Stay Pretty.</h2>
+              <p className="text-[10px] sm:text-[11px] text-pink-100">Curated with love ✨</p>
             </motion.div>
 
             {/* Floating Card 1 */}
             <motion.div 
               animate={{ y: [-15, 15, -15], rotate: [-2, 2, -2] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute right-0 top-12 rounded-2xl border border-white/80 bg-white/90 px-5 py-4 shadow-xl backdrop-blur-md"
+              className="absolute right-2 sm:right-0 top-6 sm:top-12 rounded-2xl border border-white/80 bg-white/90 px-4 py-3 sm:px-5 sm:py-4 shadow-xl backdrop-blur-md"
             >
-              <p className="text-[9px] font-bold uppercase tracking-widest text-gray-400">Trending</p>
-              <p className="mt-1 text-sm font-bold text-gray-900">✨ Bag Haul & Glow</p>
+              <p className="text-[8px] sm:text-[9px] font-bold uppercase tracking-widest text-gray-400">Trending</p>
+              <p className="mt-1 text-xs sm:text-sm font-bold text-gray-900">✨ Bag Haul & Glow</p>
             </motion.div>
 
             {/* Floating Card 2 */}
             <motion.div 
               animate={{ y: [15, -15, 15], rotate: [2, -2, 2] }}
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute bottom-10 left-2 rounded-2xl border border-white/80 bg-white/90 px-5 py-4 shadow-xl backdrop-blur-md"
+              className="absolute bottom-4 sm:bottom-10 left-2 rounded-2xl border border-white/80 bg-white/90 px-4 py-3 sm:px-5 sm:py-4 shadow-xl backdrop-blur-md"
             >
-              <p className="text-[9px] font-bold uppercase tracking-widest text-pink-500">Retail Therapy</p>
-              <p className="mt-1 text-sm font-bold text-gray-900">♡ Bestie Approved</p>
+              <p className="text-[8px] sm:text-[9px] font-bold uppercase tracking-widest text-pink-500">Retail Therapy</p>
+              <p className="mt-1 text-xs sm:text-sm font-bold text-gray-900">♡ Bestie Approved</p>
             </motion.div>
           </div>
 
@@ -247,7 +247,7 @@ function Home() {
       {/* =====================================================
           CATEGORIES SECTION
       ===================================================== */}
-      <section className="relative z-10 overflow-hidden py-24">
+      <section className="relative z-10 overflow-hidden py-20 sm:py-24">
         <div className="absolute inset-0 bg-gradient-to-b from-[#fff9fc]/80 via-white/50 to-[#fff5f9]/80" />
 
         <div className="relative mx-auto max-w-6xl px-5 sm:px-8">
@@ -257,17 +257,17 @@ function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="mb-12 flex items-end justify-between"
+            className="mb-12 flex flex-col sm:flex-row items-center sm:items-end justify-between text-center sm:text-left gap-4"
           >
             <div>
-              <div className="mb-3 flex items-center gap-2">
+              <div className="mb-3 flex items-center justify-center sm:justify-start gap-2">
                 <span className="h-[2px] w-8 bg-gradient-to-r from-pink-500 to-rose-400" />
                 <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-pink-500">Shop our collection</p>
               </div>
               <h2 className="text-3xl font-black tracking-tight text-gray-950 sm:text-4xl">Find your favourite</h2>
               <p className="mt-2 text-sm text-gray-500">Pick your favourite style from our collection.</p>
             </div>
-            <Link to="/shop" className="group hidden items-center text-sm font-bold text-gray-700 transition hover:text-pink-600 sm:flex">
+            <Link to="/shop" className="group inline-flex items-center text-sm font-bold text-gray-700 transition hover:text-pink-600">
               View all <span className="ml-2 transition-transform duration-300 group-hover:translate-x-1">→</span>
             </Link>
           </motion.div>
